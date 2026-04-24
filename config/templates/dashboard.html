@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard — eAgri{% endblock %}
+
+{% block content %}
+<h1 style="margin-bottom: 1.5rem">Bonjour, {{ user.email }} 👋</h1>
+
+<div class="stats">
+    <div class="stat-card">
+        <h2>{{ projects_count }}</h2>
+        <p>Projets</p>
+    </div>
+    <div class="stat-card">
+        <h2>{{ tasks_count }}</h2>
+        <p>Tâches</p>
+    </div>
+    <div class="stat-card">
+        <h2>{{ tasks_done }}</h2>
+        <p>Tâches terminées</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Mes derniers projets</h3>
+    {% for project in projects %}
+        <p style="margin-top: 1rem">
+            📁 <strong>{{ project.name }}</strong> — {{ project.organization }}
+        </p>
+    {% empty %}
+        <p style="margin-top: 1rem">Aucun projet pour l'instant.</p>
+    {% endfor %}
+    <a href="/projects" class="btn">Voir tous les projets</a>
+</div>
+{% endblock %}

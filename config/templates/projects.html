@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Projets — eAgri{% endblock %}
+
+{% block content %}
+<h1 style="margin-bottom: 1.5rem">Mes Projets</h1>
+
+{% for project in projects %}
+<div class="card">
+    <h3>📁 {{ project.name }}</h3>
+    <p style="color: #666; margin-top: 0.5rem">{{ project.description }}</p>
+    <p style="margin-top: 0.5rem">
+        🏢 Organisation : <strong>{{ project.organization }}</strong>
+    </p>
+    <p style="margin-top: 0.5rem">Tâches :</p>
+    {% for task in project.tasks.all %}
+        <p style="margin-left: 1rem; margin-top: 0.3rem">
+            ✅ {{ task.title }}
+            <span class="badge badge-{{ task.status|lower }}">
+                {{ task.get_status_display }}
+            </span>
+        </p>
+    {% empty %}
+        <p style="margin-left: 1rem; color: #999">Aucune tâche.</p>
+    {% endfor %}
+</div>
+{% empty %}
+    <div class="card">
+        <p>Aucun projet pour l'instant.</p>
+    </div>
+{% endfor %}
+{% endblock %}
